@@ -3,7 +3,7 @@
   <div class="search-wrap" ref="search">
     <slot name="h-left"></slot>
     <div class="search-block" :class="{'searching': searchText}">
-      <i class="mintui mintui-search"></i>
+      <van-icon name="search" color="#ccc" />
       <input type="text" class="in" v-model="searchText" :placeholder="placeholder" />
       <span @click.stop="onClear()">
         <svg-icon icon="close" :className="'svg-icon-close'" v-if="searchText"></svg-icon>

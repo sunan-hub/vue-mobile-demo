@@ -23,9 +23,11 @@ export default {
     }
   },
   mounted () {
-    this.getAdministrativeAHQ()
   },
   methods: {
+    /**
+     * 接口调用
+     */
     getAdministrativeAHQ () {
       getAdministrativeAHQ({
         serialNo: '4690301020023'
