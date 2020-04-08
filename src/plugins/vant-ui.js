@@ -1,6 +1,5 @@
 // mint-ui 需要用到的组件
 import Vue from 'vue'
-// import 'vant/lib/index.css'
 import { Cell, CellGroup, Button, Calendar, Image, Popup, CheckboxGroup, Checkbox, DatetimePicker, Field, Form, Picker, RadioGroup, Radio, Uploader, ActionSheet, Toast, Icon } from 'vant'
 
 Vue.component(CellGroup.name, CellGroup)
