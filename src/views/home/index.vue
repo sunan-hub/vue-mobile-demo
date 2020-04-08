@@ -22,6 +22,9 @@ export default {
       show: true
     }
   },
+  mounted () {
+    this.getAdministrativeAHQ()
+  },
   methods: {
     getAdministrativeAHQ () {
       getAdministrativeAHQ({
