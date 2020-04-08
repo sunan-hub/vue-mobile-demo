@@ -10,6 +10,13 @@
     <van-button type="info">信息按钮</van-button>
     <van-button type="warning">警告按钮</van-button>
     <van-button type="danger">危险按钮</van-button>
+    <van-checkbox v-model="checked">复选框</van-checkbox>
+    <van-calendar
+      title="日历"
+      :poppable="false"
+      :show-confirm="false"
+      :style="{ height: '500px' }"
+    />
   </div>
 </template>
 
@@ -19,7 +26,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      show: true
+      show: true,
+      checked: true
     }
   },
   mounted () {
