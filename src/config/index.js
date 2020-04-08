@@ -30,10 +30,11 @@ const WS_ENV_ENUM = {
 }
 
 export default {
-  baseUrl: HTTP_ENV_ENUM[envType],
+  baseUrl: HTTP_ENV_ENUM[envType], // 请求地址
   publicPath: [/^\/public/, /^\/login/], // 不用token页面
   wsconfig: { // ws
     url: WS_ENV_ENUM[envType].url,
     port: WS_ENV_ENUM[envType].port
-  }
+  },
+  useI18n: 'cn' // 是否使用多语言，目前只支持中英文[cn,en]
 }

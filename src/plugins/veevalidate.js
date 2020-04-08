@@ -1,5 +1,6 @@
 // 表单验证
-import { extend, localize } from 'vee-validate'
+import Vue from 'vue'
+import { extend, localize, ValidationProvider } from 'vee-validate'
 // eslint-disable-next-line
 import { required, email, min, length, confirmed, max, is_not } from 'vee-validate/dist/rules'
 import zh from 'vee-validate/dist/locale/zh_CN.json'
@@ -61,3 +62,4 @@ localize('zh_CN', {
     }
   }
 })
+Vue.component('ValidationProvider', ValidationProvider)
