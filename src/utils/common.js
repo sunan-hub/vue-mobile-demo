@@ -1,4 +1,3 @@
-
 /**
  * 获取地址栏参数
  * @param {string} name
@@ -17,7 +16,10 @@ export function getParam (name, url) {
  * @param {string} elem
  */
 export function getElememtY (elem) {
-  return window.pageYOffset + document.querySelector(elem).getBoundingClientRect().top
+  return (
+    window.pageYOffset +
+    document.querySelector(elem).getBoundingClientRect().top
+  )
 }
 
 /**
@@ -34,7 +36,8 @@ export const scrollToElem = (elem, duration, offset) => {
   const diff = elementY - startingY + offset
   // 如果 diff 0
   if (!diff) return
-  const easing = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+  const easing = (t) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
   let start
   window.requestAnimationFrame(function step (timestamp) {
     if (!start) start = timestamp
@@ -58,7 +61,8 @@ export const scrollToElem = (elem, duration, offset) => {
  *  金钱格式化，三位加逗号
  *  @param { number } num
  */
-export const formatMoney = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+export const formatMoney = (num) =>
+  num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 /**
  *  截取字符串并加身略号
@@ -83,7 +87,13 @@ export function subText (str, length) {
  * @param sizeMsg   大小超出限制提示
  * @returns {Promise<any>}
  */
-export function fileToBase64String (file, format = ['jpg', 'jpeg', 'png', 'gif'], size = 20 * 1024 * 1024, formatMsg = '文件格式不正确', sizeMsg = '文件大小超出限制') {
+export function fileToBase64String (
+  file,
+  format = ['jpg', 'jpeg', 'png', 'gif'],
+  size = 20 * 1024 * 1024,
+  formatMsg = '文件格式不正确',
+  sizeMsg = '文件大小超出限制'
+) {
   return new Promise((resolve, reject) => {
     // 格式过滤
     const suffix = file.type.split('/')[1].toLowerCase()
@@ -119,11 +129,11 @@ export function formatFileSize (fileSize) {
   let temp
   if (fileSize < 1024) {
     return fileSize + 'B'
-  } else if (fileSize < (1024 * 1024)) {
+  } else if (fileSize < 1024 * 1024) {
     temp = fileSize / 1024
     temp = temp.toFixed(2)
     return temp + 'KB'
-  } else if (fileSize < (1024 * 1024 * 1024)) {
+  } else if (fileSize < 1024 * 1024 * 1024) {
     temp = fileSize / (1024 * 1024)
     temp = temp.toFixed(2)
     return temp + 'MB'
@@ -156,7 +166,7 @@ export const base64ToFile = (base64, filename) => {
  *  base64转blob
  *  @param { base64 } base64
  */
-export const base64ToBlob = base64 => {
+export const base64ToBlob = (base64) => {
   const arr = base64.split(',')
   const mime = arr[0].match(/:(.*?);/)[1]
   const bstr = atob(arr[1])
@@ -183,7 +193,7 @@ export const blobToFile = (blob, fileName) => {
  * file转base64
  * @param { * } file 图片文件
  */
-export const fileToBase64 = file => {
+export const fileToBase64 = (file) => {
   const reader = new FileReader()
   reader.readAsDataURL(file)
   reader.onload = function (e) {
@@ -194,13 +204,26 @@ export const fileToBase64 = file => {
 /**
  * 递归生成树形结构
  */
-export function getTreeData (data, pid, pidName = 'parentId', idName = 'id', childrenName = 'children', key) {
+export function getTreeData (
+  data,
+  pid,
+  pidName = 'parentId',
+  idName = 'id',
+  childrenName = 'children',
+  key
+) {
   const arr = []
 
   for (let i = 0; i < data.length; i++) {
     if (data[i][pidName] === pid) {
       data[i].key = data[i][idName]
-      data[i][childrenName] = getTreeData(data, data[i][idName], pidName, idName, childrenName)
+      data[i][childrenName] = getTreeData(
+        data,
+        data[i][idName],
+        pidName,
+        idName,
+        childrenName
+      )
       arr.push(data[i])
     }
   }
@@ -223,13 +246,22 @@ export function foreachTree (data, childrenName = 'children', callback) {
 /**
  * 追溯父节点
  */
-export function traceParentNode (pid, data, rootPid, pidName = 'parentId', idName = 'id', childrenName = 'children') {
+export function traceParentNode (
+  pid,
+  data,
+  rootPid,
+  pidName = 'parentId',
+  idName = 'id',
+  childrenName = 'children'
+) {
   let arr = []
   foreachTree(data, childrenName, (node) => {
     if (node[idName] === pid) {
       arr.push(node)
       if (node[pidName] !== rootPid) {
-        arr = arr.concat(traceParentNode(node[pidName], data, rootPid, pidName, idName))
+        arr = arr.concat(
+          traceParentNode(node[pidName], data, rootPid, pidName, idName)
+        )
       }
     }
   })
@@ -239,12 +271,20 @@ export function traceParentNode (pid, data, rootPid, pidName = 'parentId', idNam
 /**
  * 寻找所有子节点
  */
-export function traceChildNode (id, data, pidName = 'parentId', idName = 'id', childrenName = 'children') {
+export function traceChildNode (
+  id,
+  data,
+  pidName = 'parentId',
+  idName = 'id',
+  childrenName = 'children'
+) {
   let arr = []
   foreachTree(data, childrenName, (node) => {
     if (node[pidName] === id) {
       arr.push(node)
-      arr = arr.concat(traceChildNode(node[idName], data, pidName, idName, childrenName))
+      arr = arr.concat(
+        traceChildNode(node[idName], data, pidName, idName, childrenName)
+      )
     }
   })
   return arr
@@ -257,7 +297,9 @@ export function traceChildNode (id, data, pidName = 'parentId', idName = 'id', c
  *  @param { * } link 生成树形结构的依据
  */
 export const createTree = (items, id = null, link = 'pid') => {
-  items.filter(item => item[link] === id).map(item => ({ ...item, children: createTree(items, item.id) }))
+  items
+    .filter((item) => item[link] === id)
+    .map((item) => ({ ...item, children: createTree(items, item.id) }))
 }
 
 /**
@@ -389,7 +431,7 @@ export function throttle (func, wait, type) {
  * @param {*} target
  */
 export function type (target) {
-  const ret = typeof (target)
+  const ret = typeof target
   const template = {
     '[object Array]': 'array',
     '[object Object]': 'object',
@@ -413,7 +455,8 @@ export function type (target) {
  * @param { number } min
  * @param { number } max
  */
-export const RandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+export const RandomNum = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
 
 /**
  * 数组乱序
@@ -437,7 +480,7 @@ export function arrScrambling (arr) {
  * @param { array} arr1
  * @param { array } arr2
  */
-export const similarity = (arr1, arr2) => arr1.filter(v => arr2.includes(v))
+export const similarity = (arr1, arr2) => arr1.filter((v) => arr2.includes(v))
 
 /**
  * 数组中某元素出现的次数
@@ -445,7 +488,7 @@ export const similarity = (arr1, arr2) => arr1.filter(v => arr2.includes(v))
  * @param {*} value
  */
 export function countOccurrences (arr, value) {
-  return arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0)
+  return arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
 }
 
 /**
@@ -455,8 +498,16 @@ export function countOccurrences (arr, value) {
  */
 export function add (arg1, arg2) {
   let r1, r2
-  try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 }
-  try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 }
+  try {
+    r1 = arg1.toString().split('.')[1].length
+  } catch (e) {
+    r1 = 0
+  }
+  try {
+    r2 = arg2.toString().split('.')[1].length
+  } catch (e) {
+    r2 = 0
+  }
   var m = Math.pow(10, Math.max(r1, r2))
   return (arg1 * m + arg2 * m) / m
 }
@@ -468,10 +519,18 @@ export function add (arg1, arg2) {
  */
 export function sub (arg1, arg2) {
   let r1, r2
-  try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 }
-  try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 }
+  try {
+    r1 = arg1.toString().split('.')[1].length
+  } catch (e) {
+    r1 = 0
+  }
+  try {
+    r2 = arg2.toString().split('.')[1].length
+  } catch (e) {
+    r2 = 0
+  }
   var m = Math.pow(10, Math.max(r1, r2))
-  var n = (r1 >= r2) ? r1 : r2
+  var n = r1 >= r2 ? r1 : r2
   return Number(((arg1 * m - arg2 * m) / m).toFixed(n))
 }
 /**
@@ -502,10 +561,19 @@ export function division (num1, num2) {
  * @param { number } num2
  */
 export function mcl (num1, num2) {
-  let m = 0; const s1 = num1.toString(); const s2 = num2.toString()
-  try { m += s1.split('.')[1].length } catch (e) {}
-  try { m += s2.split('.')[1].length } catch (e) {}
-  return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
+  let m = 0
+  const s1 = num1.toString()
+  const s2 = num2.toString()
+  try {
+    m += s1.split('.')[1].length
+  } catch (e) {}
+  try {
+    m += s2.split('.')[1].length
+  } catch (e) {}
+  return (
+    (Number(s1.replace('.', '')) * Number(s2.replace('.', ''))) /
+    Math.pow(10, m)
+  )
 }
 
 /**
@@ -611,10 +679,10 @@ export const randomHexColorCode = () => {
 /**
  * 转义html(防XSS攻击)
  */
-export const escapeHTML = str => {
+export const escapeHTML = (str) => {
   str.replace(
     /[&<>'"]/g,
-    tag =>
+    (tag) =>
       ({
         '&': '&amp;',
         '<': '&lt;',
@@ -628,13 +696,20 @@ export const escapeHTML = str => {
 /**
  * 检测移动/PC设备
  */
-export const detectDeviceType = () => { return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop' }
+export const detectDeviceType = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+    ? 'Mobile'
+    : 'Desktop'
+}
 
 /**
  * 隐藏所有指定标签
  * 例: hide(document.querySelectorAll('img'))
  */
-export const hideTag = (...el) => [...el].forEach(e => (e.style.display = 'none'))
+export const hideTag = (...el) =>
+  [...el].forEach((e) => (e.style.display = 'none'))
 
 /**
  * 返回指定元素的生效样式
@@ -649,7 +724,8 @@ export const getStyle = (el, ruleName) => getComputedStyle(el)[ruleName]
  * @param { element } child
  * 例：elementContains(document.querySelector('head'), document.querySelector('title')); // true
  */
-export const elementContains = (parent, child) => parent !== child && parent.contains(child)
+export const elementContains = (parent, child) =>
+  parent !== child && parent.contains(child)
 
 /**
  * 数字超过规定大小加上加号“+”，如数字超过99显示99+
@@ -663,4 +739,19 @@ export const outOfNum = (val, maxNum) => {
   } else {
     return val
   }
+}
+
+/**
+ * 解决 Vue Template 模板中无法使用可选链的问题
+ * @param obj
+ * @param rest
+ * @returns {*}
+ */
+export const optionalChaining = (obj, ...rest) => {
+  let tmp = obj
+  for (const key in rest) {
+    const name = rest[key]
+    tmp = tmp?.[name]
+  }
+  return tmp || ''
 }
