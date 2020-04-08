@@ -6,6 +6,7 @@ import filters from '@/plugins/filter'
 import directives from '@/plugins/directives'
 // common css
 import 'normalize.css/normalize.css'
+import '@/assets/styles/base.scss'
 
 // 引用vant-ui组件
 import '@/plugins/vant-ui'
