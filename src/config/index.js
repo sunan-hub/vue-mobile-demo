@@ -36,5 +36,5 @@ export default {
     url: WS_ENV_ENUM[envType].url,
     port: WS_ENV_ENUM[envType].port
   },
-  useI18n: 'cn' // 是否使用多语言，目前只支持中英文[cn,en]
+  useI18n: 'zh-CN' // 是否使用多语言，目前只支持中英文[zh-CN,en-US]
 }
