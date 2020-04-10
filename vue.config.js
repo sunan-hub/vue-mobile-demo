@@ -2,6 +2,7 @@ const path = require('path')
 const resolve = (dir) => path.join(__dirname, dir)
 const isProd = process.env.NODE_ENV === 'production'
 const webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const assetsCDN = {
   // webpack build externals
@@ -42,6 +43,19 @@ module.exports = {
       assetFilter: function (assetFilename) {
         return assetFilename.endsWith('.js')
       }
+    },
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          sourceMap: !isProd,
+          terserOptions: {
+            compress: {
+              drop_console: isProd,
+              drop_debugger: isProd
+            }
+          }
+        })
+      ]
     }
   },
   chainWebpack: (config) => {
