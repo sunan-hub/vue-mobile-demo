@@ -11,6 +11,9 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   window.scroll(0, 0)
+  if (to.meta.title) {
+    window.document.title = to.meta.title
+  }
   next()
 })
 

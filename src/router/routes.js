@@ -15,31 +15,46 @@ export default [
         path: '',
         name: 'home',
         component: Home,
-        props: true
+        props: true,
+        meta: {
+          title: '首页'
+        }
       },
       {
         path: 'affairs',
         name: 'affairs',
         component: Affairs,
-        props: true
+        props: true,
+        meta: {
+          title: '办事'
+        }
       },
       {
         path: 'qrcode',
         name: 'qrcode',
         component: Qrcode,
-        props: true
+        props: true,
+        meta: {
+          title: '扫码'
+        }
       },
       {
         path: 'life',
         name: 'life',
         component: Life,
-        props: true
+        props: true,
+        meta: {
+          title: '生活'
+        }
       },
       {
         path: 'center',
         name: 'center',
         component: Center,
-        props: true
+        props: true,
+        meta: {
+          title: '我的'
+        }
       }
     ]
   }
