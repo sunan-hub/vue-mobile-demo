@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  base: '/vue-mobile-demo', // 子服务，需要nginx也需要配置指定路径；名称暂定为最后一个项目名单词
+  base: process.env.VUE_APP_ROUTE_BASE,
   routes
 })
 

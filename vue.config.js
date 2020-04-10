@@ -24,6 +24,8 @@ const assetsCDN = {
 }
 
 module.exports = {
+  publicPath: process.env.VUE_APP_ROUTE_BASE,
+  lintOnSave: true,
   productionSourceMap: !isProd,
   configureWebpack: {
     // webpack plugins
