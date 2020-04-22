@@ -27,37 +27,39 @@ module.exports = {
   publicPath: process.env.VUE_APP_ROUTE_BASE,
   lintOnSave: true,
   productionSourceMap: !isProd,
-  configureWebpack: {
-    // webpack plugins
-    plugins: [
+  configureWebpack: (config) => {
+    return {
+      // webpack plugins
+      plugins: [
       // Ignore all locale files of moment.js
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ],
-    // if prod, add externals
-    externals: isProd ? assetsCDN.externals : {},
-    performance: {
-      hints: 'warning',
-      // 入口起点的最大体积 整数类型（以字节为单位）
-      maxEntrypointSize: 50000000,
-      // 生成文件的最大体积 整数类型（以字节为单位 300k）
-      maxAssetSize: 30000000,
-      // 只给出 js 文件的性能提示
-      assetFilter: function (assetFilename) {
-        return assetFilename.endsWith('.js')
-      }
-    },
-    optimization: {
-      minimizer: [
-        new TerserPlugin({
-          sourceMap: !isProd,
-          terserOptions: {
-            compress: {
-              drop_console: isProd,
-              drop_debugger: isProd
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+      ],
+      // if prod, add externals
+      externals: isProd ? assetsCDN.externals : {},
+      performance: {
+        hints: 'warning',
+        // 入口起点的最大体积 整数类型（以字节为单位）
+        maxEntrypointSize: 50000000,
+        // 生成文件的最大体积 整数类型（以字节为单位 300k）
+        maxAssetSize: 30000000,
+        // 只给出 js 文件的性能提示
+        assetFilter: function (assetFilename) {
+          return assetFilename.endsWith('.js')
+        }
+      },
+      optimization: {
+        minimizer: [
+          new TerserPlugin({
+            sourceMap: !isProd,
+            terserOptions: {
+              compress: {
+                drop_console: isProd,
+                drop_debugger: isProd
+              }
             }
-          }
-        })
-      ]
+          })
+        ]
+      }
     }
   },
   chainWebpack: (config) => {
@@ -88,9 +90,12 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://performance.digitalhainan.com.cn/onecode',
+        target: 'https://onecode-app-dev.digitalhainan.com.cn',
         ws: false,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     }
   },

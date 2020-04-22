@@ -1,61 +1,46 @@
 // 动态路由表
-const Main = () => import(/* webpackChunkName: 'main' */ '@/views/main')
+
+// isHideHeader 是否隐藏头部
+// isShowTitleBorder 是否显示头部下边框
+
+const Main = () => import(/* webpackChunkName: 'not-found' */ '@/views/main')
+const NotFound = () => import(/* webpackChunkName: 'not-found' */ '@/views/not-found')
+const NoLogin = () => import(/* webpackChunkName: 'no-login' */ '@/views/no-login')
 const Home = () => import(/* webpackChunkName: 'home' */ '@/views/home')
-const Affairs = () => import(/* webpackChunkName: 'affairs' */ '@/views/affairs')
-const Qrcode = () => import(/* webpackChunkName: 'qrcode' */ '@/views/qrcode')
-const Life = () => import(/* webpackChunkName: 'life' */ '@/views/life')
-const Center = () => import(/* webpackChunkName: 'center' */ '@/views/center')
 
 export default [
+  {
+    path: '',
+    redirect: '/home'
+  },
   {
     path: '/',
     component: Main,
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'home',
         component: Home,
         props: true,
         meta: {
-          title: '首页'
-        }
-      },
-      {
-        path: 'affairs',
-        name: 'affairs',
-        component: Affairs,
-        props: true,
-        meta: {
-          title: '办事'
-        }
-      },
-      {
-        path: 'qrcode',
-        name: 'qrcode',
-        component: Qrcode,
-        props: true,
-        meta: {
-          title: '扫码'
-        }
-      },
-      {
-        path: 'life',
-        name: 'life',
-        component: Life,
-        props: true,
-        meta: {
-          title: '生活'
-        }
-      },
-      {
-        path: 'center',
-        name: 'center',
-        component: Center,
-        props: true,
-        meta: {
-          title: '我的'
+          title: '首页',
+          isHideHeader: false
         }
       }
     ]
+  },
+  {
+    path: '*',
+    component: NotFound,
+    meta: {
+      title: 'not found'
+    }
+  },
+  {
+    path: '/no-login',
+    component: NoLogin,
+    meta: {
+      title: 'not login'
+    }
   }
 ]

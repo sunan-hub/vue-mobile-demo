@@ -2,10 +2,28 @@
 
 $header-height: 100px;
 $footer-height: 80px;
-$primary-color: #02d199;
+$primary-color: #2270FF;
+$stretch-color: #67a0ff;
 
-$font-main-color: #333;
-$border-color: #e6e6e6;
+// 文本色
+$font-color: #2a2f38; // 【1=100%；2=60%；3=30%；4=20%】
+
+// 文本大小【字重】
+$font-size: 36px; // 一级 【600】
+$font-size-1: 32px; // 二级 【600】
+$font-size-2: 28px; // 三级 【600， 300】
+$font-size-3: 24px; // 四级 【300】
+$font-size-3: 20px; // 五级 【300】
+
+// 字重
+$font-weight: 600;
+$font-weight-1: 300;
+
+// 行间距
+$line-spacing: 40px;
+
+$background-def: #f5f7fa;
+$border-color: #f0f0f0;
 
 // -> iphone
 $break-small: 320px;

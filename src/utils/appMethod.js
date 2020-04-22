@@ -1,1 +1,60 @@
 // 调用app公用方法
+/* eslint-disable no-undef */
+// 调用app公用方法
+export const handleNativeApi = (callback) => {
+  if (window.AlipayJSBridge) {
+    callback && callback()
+  } else {
+    // 如果没有注入则监听注入的事件
+    document.addEventListener('AlipayJSBridgeReady', callback, false)
+  }
+}
+
+export const exitApp = (param = {}, fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('exitApp', param, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', exitApp, false)
+    })
+  })
+}
+
+export const appLogin = (param = {}, fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('login', param, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', appLogin, false)
+    })
+  })
+}
+
+export const appBack = (param = {}, fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('popWindow', param, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', appBack, false)
+    })
+  })
+}
+
+export const backToHome = (param = { index: 1 }, fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('backToHome', param, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', backToHome, false)
+    })
+  })
+}
+
+/**
+ * 发消息给小程序,此方法仅在支付宝小程序可用
+ * @param {Object} param 发送的内容
+ * @param {Funcion} fn 发送后回调
+ */
+export const callAlipay = (param = {}, fn = null) => {
+  /* #ifdef MP-ALIPAY */
+  /* eslint-disabled */
+  my.postMessage(param)
+  fn && fn()
+  /* #endif */
+}

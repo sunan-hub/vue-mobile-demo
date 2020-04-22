@@ -5,20 +5,8 @@
 </template>
 
 <script>
-import { getAdministrativeAHQ } from '@/api/administrative'
 export default {
-  name: 'Home',
-  methods: {
-    /**
-     * 接口调用
-     */
-    getAdministrativeAHQ () {
-      getAdministrativeAHQ({
-        serialNo: '4690301020023'
-      }).then(res => {
-      })
-    }
-  }
+  name: 'Home'
 }
 </script>
 

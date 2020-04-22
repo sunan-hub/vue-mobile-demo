@@ -40,7 +40,7 @@ class HttpRequest {
       publicConfig.publicPath.map((path) => {
         isPublic = isPublic || path.test(config.url)
       })
-      const token = store.state.token
+      const token = store.state.auth.token
       if (!isPublic && token) {
         config.headers.Authorization = 'Bearer ' + token
       }
@@ -49,6 +49,12 @@ class HttpRequest {
       config.cancelToken = new CancelToken((c) => {
         this.pending[key] = c
       })
+      // 统一加body
+      if (config.data && Object.keys(config.data).length) {
+        config.data = {
+          body: config.data
+        }
+      }
       return config
     }, (err) => {
       // debugger
@@ -63,9 +69,10 @@ class HttpRequest {
       // Do something with response data
       const key = res.config.url + '&' + res.config.method
       this.removePending(key)
-      if (res.status === 200) {
+      if (res && res.data && res.data.success) {
         return Promise.resolve(res.data)
       } else {
+        errorHandle(res)
         return Promise.reject(res)
       }
     }, (err) => {
@@ -93,11 +100,12 @@ class HttpRequest {
     return this.request(options)
   }
 
-  post (url, data) {
+  post (url, data, headers) {
     return this.request({
       method: 'post',
       url: url,
-      data: data
+      data: data,
+      headers: headers
     })
   }
 }

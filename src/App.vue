@@ -40,44 +40,5 @@ export default {
     top: 50%;
     left: 50%;
   }
-  body:after {
-    content: '\4e3a\4e86\66f4\597d\7684\4f53\9a8c\ff0c\8bf7\5c06\624b\673a\7ad6\8fc7\6765';
-    position: absolute;
-    top: 50%;
-    text-align: center;
-    height: 30px;
-    left: 0;
-    font-size: 18px;
-    z-index: 99999;
-    width: 100%;
-    color: #fff;
-    margin-top: 35px;
-  }
-}
-.inline-block {
-  display: inline-block;
-}
-.flex-row {
-  display: flex;
-  flex-flow: row nowrap;
-  align-content: center;
-}
-.mint-header {
-  height: 50px;
-}
-img {
-  vertical-align: middle;
-}
-pre {
-  position: relative;
-  margin: 0;
-  padding: 0 15px;
-  line-height: 36px;
-  background: #f2f2f2;
-  color: #333;
-  font-family: 'Courier New', Courier, monospace, serif;
-  font-size: 24px;
-  border: none;
-  border-left: 5px solid #ddd;
 }
 </style>

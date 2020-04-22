@@ -1,3 +1,7 @@
+html,body{
+  background: $background-def;
+  min-height: 100vh;
+}
 // 文本超出显示省略号 ...
 .nowrap {
   white-space: nowrap;

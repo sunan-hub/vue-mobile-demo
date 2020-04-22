@@ -1,5 +1,34 @@
-@green: #000; // 主题色
-@red: #ee0a24;
-@blue: #1989fa;
-@orange: #ff976a;
-@orange-dark: #ed6a0c;
+@primary-color: #2270FF; // 品牌色
+@stretch-color: #67a0ff; // 品牌-延展色
+@vice-color: #2a2f38; // 辅助色【1=100%;2=60%;3=30%;4=20%】
+@ornament-color: #ffb222; // 点缀
+@success-color: #13d8b3; // 成功
+@fail-color: #ff5062; // 失败
+@warn-color: #ffab4b; // 警告
+@border-color: #f0f0f0; // 边框色
+@bg-color: #f5f7fa; // 背景色
+@bg-search-color: #f4f5f7; // 搜索框背景
+@divider-color: #ccc; // 分割线
+@toast-color: @vice-color; // toast色 【1=70%；2=50%】
+
+@green: @primary-color;
+@red: @fail-color;
+@orange: @warn-color;
+@blue: @stretch-color;
+@orange-dark: @ornament-color;
+
+// Border
+
+// Divider
+@divider-margin: 0;
+@divider-border-color: @divider-color;
+
+// Toast
+@toast-background-color: fade(@toast-color, 70%);
+
+// Cell
+@cell-line-height: 32px;
+
+//Button
+@button-default-height: 48px;
+@button-default-line-height: 46px;

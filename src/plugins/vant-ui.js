@@ -1,9 +1,11 @@
 // mint-ui 需要用到的组件
 import Vue from 'vue'
-import { Cell, CellGroup, Button, Calendar, Image, Popup, CheckboxGroup, Checkbox, DatetimePicker, Field, Form, Picker, RadioGroup, Radio, Uploader, ActionSheet, Toast, Icon } from 'vant'
+import { Cell, CellGroup, Button, Calendar, Image, Popup, CheckboxGroup, Checkbox, DatetimePicker, Field, Form, Picker, RadioGroup, Radio, Uploader, ActionSheet, Icon, Divider, Dialog } from 'vant'
+import Toast from '@/assets/toast'
 
 Vue.component(CellGroup.name, CellGroup)
 Vue.component(Cell.name, Cell)
+Vue.component('van-dialog', Dialog)
 Vue.component(Button.name, Button)
 Vue.component(Calendar.name, Calendar)
 Vue.component(Image.name, Image)
@@ -19,5 +21,6 @@ Vue.component(Radio.name, Radio)
 Vue.component(Uploader.name, Uploader)
 Vue.component(ActionSheet.name, ActionSheet)
 Vue.component(Icon.name, Icon)
+Vue.component(Divider.name, Divider)
 
 Vue.prototype.$Toast = Toast
