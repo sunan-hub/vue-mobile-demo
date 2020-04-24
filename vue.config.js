@@ -15,11 +15,11 @@ const assetsCDN = {
   },
   css: [],
   js: [
-    '//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
-    '//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js',
-    '//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js',
-    '//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js',
-    '//cdn.jsdelivr.net/npm/vant@2.5/lib/vant.min.js'
+    'https://onecode-h5-dev.digitalhainan.com.cn/resources/vue-2.6.10.min.js',
+    'https://onecode-h5-dev.digitalhainan.com.cn/resources/vuex-3.1.1.min.js',
+    'https://onecode-h5-dev.digitalhainan.com.cn/resources/axios-0.19.0.min.js',
+    'https://onecode-h5-dev.digitalhainan.com.cn/resources/vant-2.5.min.js',
+    'https://onecode-h5-dev.digitalhainan.com.cn/resources/vue-router-3.1.3.min.js'
   ]
 }
 
