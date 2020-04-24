@@ -10,9 +10,6 @@ const router = new VueRouter({
   routes
 })
 
-// 白名单页面（不需要登录权限的页面）
-const WHITE_LIST = ['/not-found', '/no-login']
-
 router.beforeEach(async (to, from, next) => {
   window.document.title = to.meta.title
   window.scroll(0, 0)
@@ -25,9 +22,13 @@ router.beforeEach(async (to, from, next) => {
   // 是否开启authcode验证，开发环境默认不开启
   // 如果调用接口，需要开启authcode验证，获取token，在请求接口
   // 如果需要生成authcode，可以通过访问【https://onecode-integration-test.digitalhainan.com.cn/navwithauth】输入当前开发环境地址，点击跳转获取authcode
-  if (process.env.NODE_ENV !== 'development') {
+  try {
     // userinfo
-    if (to.query && to.query.authCode && !(store.state.auth && store.state.auth.token)) {
+    if (
+      to.query &&
+      to.query.authCode &&
+      !(store.state.auth && store.state.auth.token)
+    ) {
       await store.dispatch('auth/getAuthCodeInfo', {
         authCode: to.query.authCode
       })
@@ -37,13 +38,8 @@ router.beforeEach(async (to, from, next) => {
     if (to.query.source) {
       await store.dispatch('auth/getSource', to.query.source)
     }
-
-    // token是否为空，重定位
-    if (!WHITE_LIST.includes(to.path)) {
-      if ((store.state.auth && !store.state.auth.token) && !to.query.authCode) {
-        next('/no-login')
-      }
-    }
+  } catch (error) {
+    next()
   }
 
   next()

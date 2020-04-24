@@ -4,6 +4,7 @@ import axios from 'axios'
 import errorHandle from './errorHandle'
 import store from '@/store'
 import publicConfig from '@/config'
+import qs from 'qs'
 const CancelToken = axios.CancelToken
 
 class HttpRequest {
@@ -16,6 +17,7 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
+      withCredentials: true, // 跨域
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
@@ -52,7 +54,7 @@ class HttpRequest {
       // 统一加body
       if (config.data && Object.keys(config.data).length) {
         config.data = {
-          body: config.data
+          body: qs.parse(qs.stringify(config.data))
         }
       }
       return config
