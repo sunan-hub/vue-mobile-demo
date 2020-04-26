@@ -24,11 +24,11 @@ export const exitApp = (param = {}, fn = null) => {
 export const getAuthUserInfo = (param = {}) => {
   return new Promise((resolve, reject) => {
     window.onload = (err) => {
-      if (!window.AlipayJSBridge) {
-        Toast.error('AlipayJSBridge is not defined')
-        reject(err)
-      }
       handleNativeApi(function () {
+        if (!window.AlipayJSBridge) {
+          Toast.error('AlipayJSBridge is not defined')
+          reject(err)
+        }
         AlipayJSBridge.call('getAuthUserInfo', param, function (result) {
           if (result.success) {
             resolve(result)

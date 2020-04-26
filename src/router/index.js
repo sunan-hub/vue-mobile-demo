@@ -42,8 +42,7 @@ router.beforeEach(async (to, from, next) => {
       })
     }
   } catch (error) {
-    Toast.error('authcodeinfo处理出错了')
-    next()
+    Toast.error('authcode is not defined')
   }
 
   next()
