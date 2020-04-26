@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
 import store from '@/store'
+import Toast from '@/assets/toast'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -18,27 +19,30 @@ router.beforeEach(async (to, from, next) => {
   if (store.state.auth && !store.state.auth.isFirstRouter) {
     await store.dispatch('auth/getIsFirstRouter', to.path)
   }
+  // source
+  if (to.query.source) {
+    await store.dispatch('auth/getSource', to.query.source)
+  }
 
   // 是否开启authcode验证，开发环境默认不开启
   // 如果调用接口，需要开启authcode验证，获取token，在请求接口
   // 如果需要生成authcode，可以通过访问【https://onecode-integration-test.digitalhainan.com.cn/navwithauth】输入当前开发环境地址，点击跳转获取authcode
   try {
-    // userinfo
-    if (
-      to.query &&
+    // 如果是app，直接调用app的jsapi获取用户信息
+    // 否则如果跳转接口带有authCode，请求接口获取用户信息
+    if (to.query && to.query.source === 'hnymt') {
+      await store.dispatch('auth/getAuthUserInfo')
+    } else if (
+      // 当前为非app的h5，并且存在authCode；并且当前地址栏的authCode不等于存储过的authCode时请求接口获取用户信息
       to.query.authCode &&
-      !(store.state.auth && store.state.auth.token)
+      (to.query.authCode !== store.state.auth.authCode)
     ) {
       await store.dispatch('auth/getAuthCodeInfo', {
         authCode: to.query.authCode
       })
     }
-
-    // source
-    if (to.query.source) {
-      await store.dispatch('auth/getSource', to.query.source)
-    }
   } catch (error) {
+    Toast.error('authcodeinfo处理出错了')
     next()
   }
 

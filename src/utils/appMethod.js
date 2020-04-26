@@ -1,5 +1,7 @@
 // 调用app公用方法
 /* eslint-disable no-undef */
+import Toast from '@/assets/toast'
+
 // 调用app公用方法
 export const handleNativeApi = (callback) => {
   if (window.AlipayJSBridge) {
@@ -16,6 +18,32 @@ export const exitApp = (param = {}, fn = null) => {
       fn && fn()
       document.removeEventListener('AlipayJSBridgeReady', exitApp, false)
     })
+  })
+}
+// 获取会员信息
+export const getAuthUserInfo = (param = {}) => {
+  return new Promise((resolve, reject) => {
+    window.onload = (err) => {
+      if (!window.AlipayJSBridge) {
+        Toast.error('AlipayJSBridge is not defined')
+        reject(err)
+      }
+      handleNativeApi(function () {
+        AlipayJSBridge.call('getAuthUserInfo', param, function (result) {
+          if (result.success) {
+            resolve(result)
+          } else {
+            Toast.error('获取app getAuthUserInfo失败')
+            reject(result)
+          }
+          document.removeEventListener(
+            'AlipayJSBridgeReady',
+            getAuthUserInfo,
+            false
+          )
+        })
+      })
+    }
   })
 }
 
@@ -37,9 +65,33 @@ export const appBack = (param = {}, fn = null) => {
   })
 }
 
-export const backToHome = (param = { index: 1 }, fn = null) => {
+export const showNaviBarbackToHome = (param = { index: 1 }, fn = null) => {
   handleNativeApi(function () {
     AlipayJSBridge.call('backToHome', param, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', backToHome, false)
+    })
+  })
+}
+
+/**
+ * 隐藏App导航栏
+ */
+export const hideNavBar = (fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('appNavBar', { show: false }, function () {
+      fn && fn()
+      document.removeEventListener('AlipayJSBridgeReady', hideNaviBar, false)
+    })
+  })
+}
+
+/**
+ * 显示App导航栏
+ */
+export const showNavBar = (fn = null) => {
+  handleNativeApi(function () {
+    AlipayJSBridge.call('appNavBar', { show: true }, function () {
       fn && fn()
       document.removeEventListener('AlipayJSBridgeReady', backToHome, false)
     })
