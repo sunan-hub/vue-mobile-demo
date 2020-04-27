@@ -13,6 +13,7 @@ import '@/assets/styles/base.scss'
 // 引用vant-ui组件
 import '@/plugins/vant-ui'
 import '@/plugins/common'
+import '@/plugins/offlinePackage'
 import '@/plugins/veevalidate'
 
 Object.keys(filters).forEach((key) => {
