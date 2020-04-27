@@ -69,7 +69,7 @@ export const showNaviBarbackToHome = (param = { index: 1 }, fn = null) => {
   handleNativeApi(function () {
     AlipayJSBridge.call('backToHome', param, function () {
       fn && fn()
-      document.removeEventListener('AlipayJSBridgeReady', backToHome, false)
+      document.removeEventListener('AlipayJSBridgeReady', showNaviBarbackToHome, false)
     })
   })
 }
@@ -81,7 +81,7 @@ export const hideNavBar = (fn = null) => {
   handleNativeApi(function () {
     AlipayJSBridge.call('appNavBar', { show: false }, function () {
       fn && fn()
-      document.removeEventListener('AlipayJSBridgeReady', hideNaviBar, false)
+      document.removeEventListener('AlipayJSBridgeReady', hideNavBar, false)
     })
   })
 }
@@ -93,7 +93,7 @@ export const showNavBar = (fn = null) => {
   handleNativeApi(function () {
     AlipayJSBridge.call('appNavBar', { show: true }, function () {
       fn && fn()
-      document.removeEventListener('AlipayJSBridgeReady', backToHome, false)
+      document.removeEventListener('AlipayJSBridgeReady', showNavBar, false)
     })
   })
 }
