@@ -30,8 +30,9 @@ export const getAuthUserInfo = (param = {}) => {
           reject(err)
         }
         AlipayJSBridge.call('getAuthUserInfo', param, function (result) {
-          if (result.success) {
-            resolve(result)
+          console.log('app result: ', result)
+          if (result && (result.id || result.body)) {
+            resolve(result.body ? result.body : result)
           } else {
             Toast.error('获取app getAuthUserInfo失败')
             reject(result)
