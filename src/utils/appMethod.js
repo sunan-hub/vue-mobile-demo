@@ -29,6 +29,9 @@ export const getAuthUserInfo = (param = {}) => {
           Toast.error('AlipayJSBridge is not defined')
           reject(err)
         }
+        if (process.env.VUE_APP_IS_SHOW_HEADER === 'true') {
+          hideNavBar()
+        }
         AlipayJSBridge.call('getAuthUserInfo', param, function (result) {
           console.log('app result: ', result)
           if (result && (result.id || result.body)) {

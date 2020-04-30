@@ -83,7 +83,7 @@ export default {
     async getAuthUserInfo ({ dispatch }) {
       const result = await getAuthUserInfo()
       console.log('app userinfo result: ', result)
-      const _body = result.body
+      const _body = result
       if (_body) {
         dispatch('authUserInfoHandle', _body)
       }
