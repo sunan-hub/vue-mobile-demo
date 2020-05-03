@@ -1,18 +1,18 @@
 // 头部
 <template>
   <div
-    :class="['header', border ? 'is-border' : '']"
-    :style="{zIndex: zIndex, 'background-color': bkColor}"
+    :class="['header', border ? 'is-border' : '', (isShowHeader && isProd) ? stutasBarStyle : '']"
+    :style="{ zIndex: zIndex, 'background-color': bkColor}"
     v-if="isShowHeader"
   >
     <div class="head-left" @click="goback()" v-if="hasBack">
       <slot name="h-left">
-        <img class="icon-back" src="./back.png" alt="">
+        <img class="icon-back" src="./back.png" alt="" />
       </slot>
     </div>
     <div class="head-content">
       <slot name="h-center">
-        <span>{{title}}</span>
+        <span>{{ title }}</span>
       </slot>
     </div>
     <div class="head-right">
@@ -22,10 +22,12 @@
 </template>
 <script>
 import { exitApp } from '@/utils/appMethod'
+import { getOSType } from '@/utils/common'
 export default {
   name: 'my-header',
   props: {
-    border: { // 下边框
+    border: {
+      // 下边框
       type: Boolean,
       default () {
         return false
@@ -53,7 +55,9 @@ export default {
   data () {
     return {
       // app离线显示头部，否则隐藏头部
-      isShowHeader: process.env.VUE_APP_IS_SHOW_HEADER === 'true'
+      isShowHeader: process.env.VUE_APP_IS_SHOW_HEADER === 'true',
+      isProd: process.env.NODE_ENV === 'production', // 是否为正式环境的离线包，用于设置stuta bar 高度
+      stutasBarStyle: getOSType() === 0 ? 'stutasBar-ios' : 'stutasBar-and'
     }
   },
   methods: {
@@ -81,10 +85,21 @@ export default {
   z-index: 100;
   font-size: 36px;
   font-weight: 600;
-  line-height: $header-height;
   background: #fff;
-  &.is-border{
-    &:after{
+  display: flex;
+  align-items: center;
+  // 安卓 离线包设置stutas bar height
+  &.stutasBar-and{
+    // 750像素下 stutas bar 高度
+    margin-top: 66px;
+  }
+  // ios
+  &.stutasBar-ios{
+    // 750像素下 stutas bar 高度
+    margin-top: 40px;
+  }
+  &.is-border {
+    &:after {
       position: absolute;
       box-sizing: border-box;
       content: ' ';
@@ -104,21 +119,19 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  .icon-back{
-    width:24px;
-    height:34px;
+  .icon-back {
+    width: 24px;
+    height: 34px;
     display: block;
     object-fit: contain;
   }
   .head-left,
   .head-right {
     position: absolute;
-    top: 0;
     padding: 0 20px;
   }
   .head-left {
     left: 0;
-    top: 30px;
   }
   .head-right {
     right: 0;
