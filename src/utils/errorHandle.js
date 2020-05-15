@@ -2,7 +2,7 @@ import Toast from '@/assets/toast'
 const errorHandle = (err) => {
   if (err) {
     setTimeout(() => {
-      Toast.text((err.data && err.data.message) || err.message || '网络出小差了！')
+      Toast.text(err.message)
     }, 300)
   }
 }
