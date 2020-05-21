@@ -755,3 +755,22 @@ export const optionalChaining = (obj, ...rest) => {
   }
   return tmp || ''
 }
+
+/**
+ * @description 将参数拼接到url中
+ * @param url {String} 要拼接的url
+ * @param data {Object} 要拼接的参数
+ */
+export const urlJoinParams = (url, data) => {
+  var cUrl = url
+  for (var key in data) {
+    if (data[key]) {
+      if (cUrl.indexOf('?') < 0) {
+        cUrl += '?' + key + '=' + data[key]
+      } else {
+        cUrl += '&' + key + '=' + data[key]
+      }
+    }
+  }
+  return cUrl
+}
