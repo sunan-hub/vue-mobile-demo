@@ -15,6 +15,11 @@ module.exports = {
       // landscape: false, // 横屏配置
       // landscapeUnit: 'vw',
       // landscapeWidth: 568
+    },
+    'postcss-design-convert': {
+      multiple: 2,
+      units: ['vw'],
+      selector: /^\.van-/
     }
   }
 }
