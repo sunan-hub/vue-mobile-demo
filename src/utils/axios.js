@@ -11,6 +11,10 @@ class HttpRequest {
   constructor (baseUrl) {
     this.baseUrl = baseUrl
     this.pending = {}
+    // 自定义参数
+    this.customData = {
+      isCatchCallback: false // 报错提示是否使用公共报错
+    }
   }
 
   // 获取axios配置
@@ -47,7 +51,7 @@ class HttpRequest {
     }
     // debugger
     // 如果自定义错误回调，则跳过统一提示
-    if (err.config.customData && !err.config.customData.isCatchCallback) {
+    if (this.customData && !this.customData.isCatchCallback) {
       errorHandle(errRes)
     }
     // Do something with request error
@@ -137,6 +141,10 @@ class HttpRequest {
   request (options) {
     const instance = axios.create()
     const newOptions = Object.assign(this.getInsideConfig(), options)
+    this.customData = {
+      isCatchCallback: false,
+      ...newOptions.customData
+    }
     this.interceptors(instance)
     return instance(newOptions)
   }
@@ -156,7 +164,6 @@ class HttpRequest {
       url: url,
       params: qs.parse(qs.stringify(params)),
       customData: {
-        isCatchCallback: false,
         ...customData
       }
     })
@@ -179,7 +186,6 @@ class HttpRequest {
       data: data,
       headers: headers,
       customData: {
-        isCatchCallback: false,
         ...customData
       }
     })
