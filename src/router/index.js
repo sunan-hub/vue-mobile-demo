@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
 import { authCodeHandle } from '@/utils/auth'
+import store from '@/store'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -16,8 +17,9 @@ const whiteList = ['/login', '/register']
 router.beforeEach(async (to, from, next) => {
   window.document.title = to.meta.title
   window.scroll(0, 0)
-
-  await authCodeHandle(to, whiteList)
+  if (!store.state.auth.isFirstRouter && !store.state.auth.token) {
+    await authCodeHandle(to, whiteList)
+  }
 
   next()
 })
