@@ -17,7 +17,7 @@ const whiteList = ['/login', '/register']
 router.beforeEach(async (to, from, next) => {
   window.document.title = to.meta.title
   window.scroll(0, 0)
-  if (!store.state.auth.isFirstRouter && !store.state.auth.token) {
+  if (!store.state.auth.isFirstRouter || !store.state.auth.token) {
     await authCodeHandle(to, whiteList)
   }
 
