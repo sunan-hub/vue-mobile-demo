@@ -5,7 +5,7 @@ import store from './store'
 import filters from '@/plugins/filter'
 import * as mixins from '@/plugins/mixins'
 import directives from '@/plugins/directives'
-import i18n from '@/i18n/i18n'
+import i18n from '@/locales'
 // common css
 import 'reset.css'
 import '@/assets/styles/base.scss'

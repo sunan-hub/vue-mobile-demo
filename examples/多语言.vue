@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div>{{$t('titleCont')}}</div>
+    <div>{{$t('lang.title')}}</div>
+    <p>测试一卡</p>
   </div>
 </template>
 <script>
 export default {
-  // titleCont需要在多语言包中定义
-  // '@/i18n/lang/en-US.js'
-  // '@/i18n/lang/zh-CN'
+  // '@/locales/en.json'
+  // '@/locales/zh-CN.json'
 }
 </script>
 
