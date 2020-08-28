@@ -1,6 +1,8 @@
 {
-  "name": "h5-template",
-  "version": "0.1.1",
+  "name": "{{name}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
+  "author": "{{author}}",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
