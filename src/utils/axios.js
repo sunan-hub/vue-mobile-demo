@@ -5,7 +5,7 @@ import errorHandle from './errorHandle'
 import store from '@/store'
 import publicConfig from '@/config'
 import qs from 'qs'
-const CancelToken = axios.CancelToken
+// const CancelToken = axios.CancelToken
 
 class HttpRequest {
   constructor (baseUrl) {
@@ -75,11 +75,11 @@ class HttpRequest {
         }
         config.headers.AppPlatform = 'H5'
         config.headers['Accept-Language'] = publicConfig.useI18n
-        const key = config.url + '&' + config.method
-        this.removePending(key, true)
-        config.cancelToken = new CancelToken((c) => {
-          this.pending[key] = c
-        })
+        // const key = config.url + '&' + config.method
+        // this.removePending(key, true)
+        // config.cancelToken = new CancelToken((c) => {
+        //   this.pending[key] = c
+        // })
         // 统一加body
         if (config.data && Object.keys(config.data).length) {
           config.data = {
