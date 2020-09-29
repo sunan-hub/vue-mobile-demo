@@ -24,3 +24,4 @@ output.js
 
 .history
 yarn.lock
+package-lock.json
