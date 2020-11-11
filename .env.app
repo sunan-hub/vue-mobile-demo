@@ -1,6 +1,6 @@
 NODE_ENV = 'production'
 VUE_APP_TITLE = 'production'
-VUE_APP_ROUTE_BASE = '/family'
+VUE_APP_ROUTE_BASE = '/'
 VUE_APP_ENV_TYPE = 'prod'
 VUE_APP_MODE = 'hash'
 VUE_APP_IS_SHOW_HEADER = 'true'
