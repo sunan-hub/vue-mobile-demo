@@ -3,10 +3,10 @@ const envType = process.env.VUE_APP_ENV_TYPE
 
 // http/https环境枚举
 const HTTP_ENV_ENUM = {
-  dev: 'https://onecode-app-dev.digitalhainan.com.cn', // 开发环境
-  preview: 'https://onecode-h5-dev.digitalhainan.com.cn/api/', // 预发布环境
-  prod: 'https://onecode-h5-dev.digitalhainan.com.cn/api/', // 正式环境
-  test: 'https://onecode-h5-dev.digitalhainan.com.cn/api/' // 测试环境
+  dev: '', // 开发环境
+  preview: '', // 预发布环境
+  prod: '', // 正式环境
+  test: '' // 测试环境
 }
 
 // websocket环境枚举
@@ -32,7 +32,8 @@ const WS_ENV_ENUM = {
 export default {
   baseUrl: HTTP_ENV_ENUM[envType], // 请求地址
   publicPath: [/^\/public/, /^\/login/], // 不用token页面
-  wsconfig: { // ws
+  wsconfig: {
+    // ws
     url: WS_ENV_ENUM[envType].url,
     port: WS_ENV_ENUM[envType].port
   },
