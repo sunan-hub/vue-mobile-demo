@@ -31,7 +31,7 @@ module.exports = {
     return {
       // webpack plugins
       plugins: [
-      // Ignore all locale files of moment.js
+        // Ignore all locale files of moment.js
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
       ],
       // if prod, add externals
@@ -81,12 +81,13 @@ module.exports = {
       .exclude.add(resolve('./src/assets/icons'))
 
     if (isProd) {
-      config.plugin('html').tap(args => {
+      config.plugin('html').tap((args) => {
         args[0].cdn = assetsCDN
         return args
       })
     }
   },
+  // devServer start
   devServer: {
     proxy: {
       '/api': {
@@ -99,6 +100,7 @@ module.exports = {
       }
     }
   },
+  // devServer end
   css: {
     sourceMap: process.env.NODE_ENV !== 'production',
     loaderOptions: {
@@ -108,7 +110,10 @@ module.exports = {
       },
       less: {
         modifyVars: {
-          hack: `true; @import "${path.join(__dirname, '/src/assets/styles/vant-theme.less')}";`
+          hack: `true; @import "${path.join(
+            __dirname,
+            '/src/assets/styles/vant-theme.less'
+          )}";`
         }
       }
     }
