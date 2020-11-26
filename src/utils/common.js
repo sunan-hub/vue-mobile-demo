@@ -1,3 +1,6 @@
+import { MSBS_SOURCES, YSS_SOURCES } from '@/utils/data'
+import store from '@/store'
+
 /**
  * 获取地址栏参数
  * @param {string} name
@@ -773,4 +776,97 @@ export const urlJoinParams = (url, data) => {
     }
   }
   return cUrl
+}
+
+/**
+ * 是否在app的source中
+ */
+export function isAppSource (source) {
+  if (!source) {
+    source = store.state.auth.source
+  }
+  return source === MSBS_SOURCES.app || source === YSS_SOURCES.app
+}
+
+/**
+ * 是否在小程序的source中
+ */
+export function isMiniSource (source) {
+  const sources = [
+    MSBS_SOURCES.wechat,
+    MSBS_SOURCES.alipay,
+    YSS_SOURCES.wechat,
+    YSS_SOURCES.alipay
+  ]
+  for (const key in sources) {
+    if (source === sources[key]) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * 是否在支付宝小程序的source中
+ */
+export function isAlipaySource (source) {
+  const sources = [MSBS_SOURCES.alipay, YSS_SOURCES.alipay]
+  for (const key in sources) {
+    if (source === sources[key]) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * 是否在微信小程序的source中
+ */
+export function isWechatSource (source) {
+  const sources = [MSBS_SOURCES.wechat, YSS_SOURCES.wechat]
+  for (const key in sources) {
+    if (source === sources[key]) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * 是否为有效的source（我们可以认的）
+ */
+export function isValidSource (source) {
+  for (const key in MSBS_SOURCES) {
+    if (source === MSBS_SOURCES[key]) {
+      return true
+    }
+  }
+  for (const key in YSS_SOURCES) {
+    if (source === YSS_SOURCES[key]) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * 是否是椰省事的source
+ */
+export function isYssSource (source) {
+  for (const key in YSS_SOURCES) {
+    if (source === YSS_SOURCES[key]) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * 是否在微信环境
+ */
+export function inWechat () {
+  return (
+    navigator.userAgent.match(/MicroMessenger/i) ||
+    window.__wxjs_environment === 'miniprogram'
+  )
 }
